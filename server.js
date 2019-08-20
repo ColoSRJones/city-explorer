@@ -1,6 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
+const superagent = require('superagent');
+
+
 const app = express();
 app.use(cors());
 
@@ -50,7 +53,8 @@ const weatherData = require('./data/darksky.json');
 
 app.get('/location', (req, res) => {
   try {
-    const location = new Location(req.query.location, geoData);
+	superagent.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY');
+    // const location = new Location(req.query.location, geoData);
     res.send(location);
   } catch (error) {
     res.status(500).send({status: 500, responseText: error.message});
